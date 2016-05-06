@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ public class Cities extends AppCompatActivity {
     //UI
     ListView mListView;
 
+
     public static String CityName;
 
     @Override
@@ -40,11 +43,20 @@ public class Cities extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities);
 
+        ImageButton backbtn = (ImageButton) findViewById(R.id.backbtn);
+
         Firebase.setAndroidContext(this);
 
         mRootRef = new Firebase("https://danieljfears.firebaseio.com/");
 
         mListView = (ListView)findViewById(R.id.listView);
+
+        backbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -83,13 +95,14 @@ public class Cities extends AppCompatActivity {
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
                 String message = map.get("CityName");
                 String image = map.get("ImgName");
+                String desc = map.get("Desc");
                 Log.v("E_VALUE", message);
                 mMessages.add(message);
                 //adapter.notifyDataSetChanged();
 
                 int resID = getResources().getIdentifier(image , "drawable", getPackageName());
 
-                cities.add(new ListObject(message, resID));
+                cities.add(new ListObject(message, resID, desc));
 
                 LocationAdapter adapter =  new LocationAdapter(cities);
 
@@ -139,11 +152,13 @@ public class Cities extends AppCompatActivity {
 
             ImageView imgCity = (ImageView)convertView.findViewById(R.id.imgCity);
             TextView lblCity = (TextView)convertView.findViewById(R.id.lblCity);
+            TextView lblDesc = (TextView)convertView.findViewById(R.id.lblDesc);
 
             ListObject location = cities.get(position);
 
             imgCity.setImageResource(location.getCityPicture());
             lblCity.setText(location.getCityName());
+            lblDesc.setText(location.getCityDesc());
 
             return convertView;
 
@@ -158,4 +173,5 @@ public class Cities extends AppCompatActivity {
         mMessages.clear();
 
     }
+
 }

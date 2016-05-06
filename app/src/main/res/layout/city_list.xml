@@ -4,8 +4,8 @@
 
     <ImageView
         android:id="@+id/imgCity"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"/>
 
@@ -13,10 +13,21 @@
         android:id="@+id/lblCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="35sp"
-        android:layout_marginLeft="120dp"
+        android:textSize="30sp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:layout_alignTop="@+id/imgCity"
+        android:layout_toRightOf="@+id/imgCity"
+        />
+
+    <TextView
+        android:id="@+id/lblDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/lblCity"
+        android:layout_toRightOf="@+id/imgCity"
         />
 
 </RelativeLayout>
