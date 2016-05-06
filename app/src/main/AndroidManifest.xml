@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="danieljfears.companion">
-
     // Grants internet permissions
     <uses-permission android:name="android.permission.INTERNET" />
-
     // Grants location permissions
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
 
     <application
         android:allowBackup="true"
@@ -22,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Cities"></activity>
+        <activity android:name=".Cities" />
+        <activity android:name=".Menu" />
+        <activity android:name=".ListObject"></activity>
     </application>
 
 </manifest>
