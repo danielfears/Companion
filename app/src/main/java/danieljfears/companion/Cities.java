@@ -79,6 +79,8 @@ public class Cities extends AppCompatActivity {
                 mMessages.add(message);
                 adapter.notifyDataSetChanged();
 
+
+
             }
 
             @Override
