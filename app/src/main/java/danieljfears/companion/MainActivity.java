@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(), "Button pressed",   Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Find user location",   Toast.LENGTH_LONG).show();
             }
         });
 

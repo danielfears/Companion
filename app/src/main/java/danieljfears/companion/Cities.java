@@ -27,7 +27,6 @@ public class Cities extends AppCompatActivity {
     ArrayList<String> mMessages = new ArrayList<>();
 
     //UI
-    TextView mTextView;
     ListView mListView;
 
     @Override
@@ -39,7 +38,6 @@ public class Cities extends AppCompatActivity {
 
         mRootRef = new Firebase("https://danieljfears.firebaseio.com/");
 
-        mTextView = (TextView)findViewById(R.id.textView);
         mListView = (ListView)findViewById(R.id.listView);
 
     }
@@ -60,7 +58,7 @@ public class Cities extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3)
             {
                 String selectedCity=mMessages.get(position);
-                Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
 
                 //Intent i= new Intent(MainActivity.this,secondActivity.class);
                 //i.putExtra("string",mMessages.get(position);
@@ -74,7 +72,9 @@ public class Cities extends AppCompatActivity {
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String message = dataSnapshot.getKey();
+
+                Map<String, String> map = dataSnapshot.getValue(Map.class);
+                String message = map.get("CityName");
                 Log.v("E_VALUE", message);
                 mMessages.add(message);
                 adapter.notifyDataSetChanged();
