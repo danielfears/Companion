@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Shopping extends AppCompatActivity {
+public class Toilets extends AppCompatActivity {
 
     //Firebase
     Firebase mRootRef;
@@ -42,7 +42,7 @@ public class Shopping extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping);
+        setContentView(R.layout.activity_toilets);
 
         ImageButton backbtn = (ImageButton) findViewById(R.id.backbtn);
 
@@ -81,13 +81,13 @@ public class Shopping extends AppCompatActivity {
                 /*RestaurantName = selectedRestaurant;
                 Intent i= new Intent(Restaurants.this,Menu.class);
                 startActivity(i); */
-                Intent i= new Intent(Shopping.this,MapsActivity.class);
+                Intent i= new Intent(Toilets.this,MapsActivity.class);
                 startActivity(i);
 
             }
         });
 
-        Firebase messagesRef = mRootRef.child("/Shops");
+        Firebase messagesRef = mRootRef.child("/Toilets");
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -139,7 +139,7 @@ public class Shopping extends AppCompatActivity {
     private class LocationAdapter extends ArrayAdapter<PlaceObject> {
 
         public LocationAdapter(List<PlaceObject> items) {
-            super(Shopping.this, 0, items);
+            super(Toilets.this, 0, items);
         }
 
         @Override

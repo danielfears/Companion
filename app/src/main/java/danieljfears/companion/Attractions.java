@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
@@ -33,6 +34,8 @@ public class Attractions extends AppCompatActivity {
     public static Integer dist = 0;
     public static String lon;
     public static String lat;
+    public static String selectedItem;
+
 
     //UI
     ListView mListView;
@@ -42,7 +45,7 @@ public class Attractions extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurants);
+        setContentView(R.layout.activity_attractions);
 
         ImageButton backbtn = (ImageButton) findViewById(R.id.backbtn);
 
@@ -75,12 +78,13 @@ public class Attractions extends AppCompatActivity {
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3)
             {
-                String selectedRestaurant=mMessages.get(position);
-                //Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
+                Menu.selectedItem=mMessages.get(position);
 
-                /*RestaurantName = selectedRestaurant;
-                Intent i= new Intent(Restaurants.this,Menu.class);
-                startActivity(i); */
+                //Toast.makeText(getApplicationContext(), "Selected: " + selectedAttraction,   Toast.LENGTH_SHORT).show();
+
+
+                Intent i= new Intent(Attractions.this,MapsActivity.class);
+                startActivity(i);
 
             }
         });

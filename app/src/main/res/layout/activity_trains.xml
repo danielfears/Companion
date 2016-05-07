@@ -64,7 +64,7 @@
             android:layout_centerInParent="true"
             android:id="@+id/menuTitle"
             android:textSize="30dp"
-            android:text="Shops near your location"
+            android:text="Train Stations near your location"
             android:textStyle="bold"/>
 
     </RelativeLayout>

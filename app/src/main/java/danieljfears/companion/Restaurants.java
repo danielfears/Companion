@@ -75,12 +75,14 @@ public class Restaurants extends AppCompatActivity {
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3)
             {
-                String selectedRestaurant=mMessages.get(position);
+                Menu.selectedItem=mMessages.get(position);
                 //Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
 
                 /*RestaurantName = selectedRestaurant;
                 Intent i= new Intent(Restaurants.this,Menu.class);
                 startActivity(i); */
+                Intent i= new Intent(Restaurants.this,MapsActivity.class);
+                startActivity(i);
 
             }
         });

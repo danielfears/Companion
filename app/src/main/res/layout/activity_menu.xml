@@ -120,12 +120,23 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="180dp"
-            android:text="Transport"
+            android:text="Bus Stops"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
-            android:id="@+id/transport"
+            android:id="@+id/busses"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:text="Train&#10;Stations"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:fontFamily="sans-serif"
+            android:textSize="30dp"
+            android:id="@+id/trains"
             />
 
         <Button
@@ -148,6 +159,17 @@
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/groceries"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:text="ATMs"
+            android:layout_gravity="fill"
+            android:layout_columnWeight="1"
+            android:fontFamily="sans-serif"
+            android:textSize="30dp"
+            android:id="@+id/atms"
             />
 
     </GridLayout>
