@@ -9,47 +9,46 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
-import java.security.spec.AlgorithmParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Cities extends AppCompatActivity {
+public class Restaurants extends AppCompatActivity {
 
     //Firebase
     Firebase mRootRef;
     ArrayList<String> mMessages = new ArrayList<>();
-    List<ListObject> cities = new ArrayList<>();
+    List<PlaceObject> restaurants = new ArrayList<>();
+
+    public static Integer dist = 0;
+    public static String lon;
+    public static String lat;
 
     //UI
     ListView mListView;
 
-
-    public static String CityName;
+    //public static String RestaurantName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cities);
+        setContentView(R.layout.activity_restaurants);
 
         ImageButton backbtn = (ImageButton) findViewById(R.id.backbtn);
 
         Firebase.setAndroidContext(this);
 
-        mRootRef = new Firebase("https://danieljfears.firebaseio.com/");
+        mRootRef = new Firebase("https://danieljfears.firebaseio.com/City/" + Cities.CityName);
 
         mListView = (ListView)findViewById(R.id.listView);
 
@@ -76,35 +75,35 @@ public class Cities extends AppCompatActivity {
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3)
             {
-                String selectedCity=mMessages.get(position);
+                String selectedRestaurant=mMessages.get(position);
                 //Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
 
-                CityName = selectedCity;
-                Intent i= new Intent(Cities.this,Menu.class);
-                startActivity(i);
+                /*RestaurantName = selectedRestaurant;
+                Intent i= new Intent(Restaurants.this,Menu.class);
+                startActivity(i); */
 
             }
         });
 
-        Firebase messagesRef = mRootRef.child("City");
+        Firebase messagesRef = mRootRef.child("/Restaurant");
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 Map<String, String> map = dataSnapshot.getValue(Map.class);
-                String message = map.get("CityName");
-                String image = map.get("ImgName");
-                String desc = map.get("Desc");
+                String name = map.get("Name");
+                lon = map.get("Long").toString();
+                lat = map.get("Lat").toString();
 
-                Log.v("E_VALUE", message);
-                mMessages.add(message);
+                FindDistance();
+
+                //Log.v("E_VALUE", message);
+                mMessages.add(name);
                 //adapter.notifyDataSetChanged();
 
-                int resID = getResources().getIdentifier(image , "drawable", getPackageName());
+                restaurants.add(new PlaceObject(name, dist));
 
-                cities.add(new ListObject(message, resID, desc));
-
-                LocationAdapter adapter =  new LocationAdapter(cities);
+                LocationAdapter adapter =  new LocationAdapter(restaurants);
 
                 mListView.setAdapter(adapter);
 
@@ -133,14 +132,12 @@ public class Cities extends AppCompatActivity {
             }
         });
 
-        FindDistance();
-
     }
 
-    private class LocationAdapter extends ArrayAdapter<ListObject> {
+    private class LocationAdapter extends ArrayAdapter<PlaceObject> {
 
-        public LocationAdapter(List<ListObject> items) {
-            super(Cities.this, 0, items);
+        public LocationAdapter(List<PlaceObject> items) {
+            super(Restaurants.this, 0, items);
         }
 
         @Override
@@ -148,18 +145,16 @@ public class Cities extends AppCompatActivity {
 
             if (convertView == null) {
                 convertView = getLayoutInflater().inflate(
-                        R.layout.city_list, null);
+                        R.layout.place_list, null);
             }
 
-            ImageView imgCity = (ImageView)convertView.findViewById(R.id.imgCity);
-            TextView lblCity = (TextView)convertView.findViewById(R.id.lblCity);
-            TextView lblDesc = (TextView)convertView.findViewById(R.id.lblDesc);
+            TextView lblName = (TextView)convertView.findViewById(R.id.lblName);
+            TextView lblDist = (TextView)convertView.findViewById(R.id.lblDist);
 
-            ListObject location = cities.get(position);
+            PlaceObject location = restaurants.get(position);
 
-            imgCity.setImageResource(location.getCityPicture());
-            lblCity.setText(location.getCityName());
-            lblDesc.setText(location.getCityDesc());
+            lblName.setText(location.getPlaceName());
+            lblDist.setText(String.valueOf(location.getPlaceDist()));
 
             return convertView;
 
@@ -172,28 +167,23 @@ public class Cities extends AppCompatActivity {
         super.onResume();
 
         mMessages.clear();
+        restaurants.clear();
 
     }
 
     public void FindDistance() {
 
-        // Test data
-        //double bathlat = 51.375801;
-       // double bathlong = -2.359904;
-
-        // Output user long and lat details
-        /*Toast.makeText(
-                getApplicationContext(),
-                "Your Location is -\nLat: " + latitude + "\nLong: "
-                        + longitude, Toast.LENGTH_LONG).show(); */
+        double londouble = Double.parseDouble(lon);
+        double latdouble = Double.parseDouble(lat);
 
         Location loc1 = new Location("");
         loc1.setLatitude(MainActivity.latitude);
         loc1.setLongitude(MainActivity.longitude);
 
         Location loc2 = new Location("");
-        //loc2.setLatitude(bathlat);
-        //loc2.setLongitude(bathlong);
+
+        loc2.setLatitude(londouble);
+        loc2.setLongitude(latdouble);
 
         float distanceInMeters = loc1.distanceTo(loc2);
 
@@ -201,7 +191,7 @@ public class Cities extends AppCompatActivity {
         //distanceInMeters = ((distanceInMeters / 1000) / 8) * 5;
 
         // Removes decimals and converts to int
-        int roundedDistance = Math.round(distanceInMeters);
+        dist = Math.round(distanceInMeters);
 
 
         /*
@@ -211,7 +201,11 @@ public class Cities extends AppCompatActivity {
                 "Distance is: " + roundedDistance, Toast.LENGTH_LONG).show(); */
 
         // Output to system
-        System.out.println(roundedDistance);
+
+        System.out.println("USERS LAT " + MainActivity.latitude);
+        System.out.println("USERS LONG " + MainActivity.longitude);
+        System.out.println("DIST " + dist);
+
 
     }
 

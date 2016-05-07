@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    GPSTracker gps;
+    public static GPSTracker gps;
     public static double latitude;
     public static double longitude;
 
@@ -52,36 +52,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    GetLocation();
-
-
-
-                    //double distance=Math.sqrt((bathlat-latitude)*(latitude-bathlat))
+                //FindDistance();
 
             }
         });
 
+        gps = new GPSTracker(MainActivity.this);
+
+        if(gps.canGetLocation()) {
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+
+        } else {
+            gps.showSettingsAlert();
+        }
+
+        FindDistance();
+
     }
 
-    public void GetLocation() {
+    public void FindDistance() {
 
-            gps = new GPSTracker(MainActivity.this);
 
-            if(gps.canGetLocation()) {
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
-
-            } else {
-                gps.showSettingsAlert();
-            }
-
+        // Test data
         double bathlat = 51.375801;
         double bathlong = -2.359904;
 
-                    /*Toast.makeText(
-                            getApplicationContext(),
-                            "Your Location is -\nLat: " + latitude + "\nLong: "
-                                    + longitude, Toast.LENGTH_LONG).show(); */
+        // Output user long and lat details
+        /*Toast.makeText(
+                getApplicationContext(),
+                "Your Location is -\nLat: " + latitude + "\nLong: "
+                        + longitude, Toast.LENGTH_LONG).show(); */
 
         Location loc1 = new Location("");
         loc1.setLatitude(latitude);
@@ -94,16 +95,22 @@ public class MainActivity extends AppCompatActivity {
         float distanceInMeters = loc1.distanceTo(loc2);
 
         // Converts to miles
-        //distanceInMeters = ((distanceInMeters / 1000) / 8) * 5;
+        distanceInMeters = ((distanceInMeters / 1000) / 8) * 5;
+
+        // Removes decimals and converts to int
         int roundedDistance = Math.round(distanceInMeters);
 
+
+        /*
+        // Toast distance in meters
+        Toast.makeText(
+                getApplicationContext(),
+                "Distance is: " + roundedDistance, Toast.LENGTH_LONG).show(); */
+
+        // Output to system
         System.out.println(latitude);
         System.out.println(longitude);
         System.out.println(roundedDistance);
-
-        Toast.makeText(
-                getApplicationContext(),
-                "Distance is: " + roundedDistance, Toast.LENGTH_LONG).show();
 
     }
 

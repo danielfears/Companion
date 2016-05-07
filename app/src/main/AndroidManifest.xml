@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".Cities" />
         <activity android:name=".Menu" />
-        <activity android:name=".ListObject"></activity>
+        <activity android:name=".ListObject" />
+        <activity android:name=".Restaurants"></activity>
     </application>
 
 </manifest>

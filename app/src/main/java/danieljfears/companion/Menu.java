@@ -1,5 +1,6 @@
 package danieljfears.companion;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,7 +51,8 @@ public class Menu extends AppCompatActivity {
         restaurants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(Menu.this, Restaurants.class);
+                startActivity(i);
             }
         });
 
