@@ -24,13 +24,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    //
+    GPSTracker gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_main);
 
@@ -51,7 +49,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getApplicationContext(), "Find user location",   Toast.LENGTH_LONG).show();
+                gps = new GPSTracker(MainActivity.this);
+
+                //Toast.makeText(getApplicationContext(), "Find user location",   Toast.LENGTH_LONG).show();
+
+                if(gps.canGetLocation()) {
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Your Location is -\nLat: " + latitude + "\nLong: "
+                                    + longitude, Toast.LENGTH_LONG).show();
+                } else {
+                    gps.showSettingsAlert();
+                }
             }
         });
 
