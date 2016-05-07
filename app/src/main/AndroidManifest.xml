@@ -22,7 +22,9 @@
         <activity android:name=".Cities" />
         <activity android:name=".Menu" />
         <activity android:name=".ListObject" />
-        <activity android:name=".Restaurants"></activity>
+        <activity android:name=".Restaurants" />
+        <activity android:name=".Attractions" />
+        <activity android:name=".Shopping"></activity>
     </application>
 
 </manifest>

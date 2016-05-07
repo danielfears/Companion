@@ -44,7 +44,8 @@ public class Menu extends AppCompatActivity {
         attractions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(Menu.this, Attractions.class);
+                startActivity(i);
             }
         });
 
@@ -59,7 +60,8 @@ public class Menu extends AppCompatActivity {
         shopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(Menu.this, Shopping.class);
+                startActivity(i);
             }
         });
 

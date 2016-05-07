@@ -90,7 +90,7 @@
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:id="@+id/attractions"
 
             />
@@ -101,7 +101,7 @@
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:id="@+id/restaurants"
 
             />
@@ -113,7 +113,7 @@
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:id="@+id/shopping"
             />
 
@@ -124,7 +124,7 @@
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:id="@+id/transport"
             />
 
@@ -135,7 +135,7 @@
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:id="@+id/toilets"
             />
 
@@ -146,7 +146,7 @@
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
-            android:textSize="24dp"
+            android:textSize="30dp"
             android:id="@+id/groceries"
             />
 

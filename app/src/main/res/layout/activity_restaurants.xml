@@ -63,8 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:id="@+id/menuTitle"
-            android:textSize="24dp"
-            android:text="Select a restaurant"/>
+            android:textSize="30dp"
+            android:text="Restaurants near your location"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 
