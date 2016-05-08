@@ -79,9 +79,18 @@ public class Cities extends AppCompatActivity {
                 String selectedCity=mMessages.get(position);
                 //Toast.makeText(getApplicationContext(), "Choice : "+selectedCity,   Toast.LENGTH_SHORT).show();
 
-                CityName = selectedCity;
-                Intent i= new Intent(Cities.this,Menu.class);
-                startActivity(i);
+                if(selectedCity.equals("Bath")) {
+
+                    CityName = selectedCity;
+                    Intent i= new Intent(Cities.this,Menu.class);
+                    startActivity(i);
+
+                }
+                else {
+
+                    Toast.makeText(getApplicationContext(), selectedCity + " under development. Bath working as proof of concept",   Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });
@@ -133,8 +142,6 @@ public class Cities extends AppCompatActivity {
             }
         });
 
-        FindDistance();
-
     }
 
     private class LocationAdapter extends ArrayAdapter<ListObject> {
@@ -176,44 +183,5 @@ public class Cities extends AppCompatActivity {
 
     }
 
-    public void FindDistance() {
-
-        // Test data
-        //double bathlat = 51.375801;
-       // double bathlong = -2.359904;
-
-        // Output user long and lat details
-        /*Toast.makeText(
-                getApplicationContext(),
-                "Your Location is -\nLat: " + latitude + "\nLong: "
-                        + longitude, Toast.LENGTH_LONG).show(); */
-
-        Location loc1 = new Location("");
-        loc1.setLatitude(MainActivity.latitude);
-        loc1.setLongitude(MainActivity.longitude);
-
-        Location loc2 = new Location("");
-        //loc2.setLatitude(bathlat);
-        //loc2.setLongitude(bathlong);
-
-        float distanceInMeters = loc1.distanceTo(loc2);
-
-        // Converts to miles
-        //distanceInMeters = ((distanceInMeters / 1000) / 8) * 5;
-
-        // Removes decimals and converts to int
-        int roundedDistance = Math.round(distanceInMeters);
-
-
-        /*
-        // Toast distance in meters
-        Toast.makeText(
-                getApplicationContext(),
-                "Distance is: " + roundedDistance, Toast.LENGTH_LONG).show(); */
-
-        // Output to system
-        System.out.println(roundedDistance);
-
-    }
 
 }

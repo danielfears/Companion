@@ -99,6 +99,9 @@ public class Restaurants extends AppCompatActivity {
 
                 FindDistance();
 
+                System.out.println("LON ON RES :" + lon);
+                System.out.println("LAT ON RES :" + lat);
+
                 //Log.v("E_VALUE", message);
                 mMessages.add(name);
                 //adapter.notifyDataSetChanged();
@@ -184,8 +187,9 @@ public class Restaurants extends AppCompatActivity {
 
         Location loc2 = new Location("");
 
-        loc2.setLatitude(londouble);
-        loc2.setLongitude(latdouble);
+        loc2.setLongitude(londouble);
+        loc2.setLatitude(latdouble);
+
 
         float distanceInMeters = loc1.distanceTo(loc2);
 
@@ -206,7 +210,6 @@ public class Restaurants extends AppCompatActivity {
 
         System.out.println("USERS LAT " + MainActivity.latitude);
         System.out.println("USERS LONG " + MainActivity.longitude);
-        System.out.println("DIST " + dist);
 
 
     }

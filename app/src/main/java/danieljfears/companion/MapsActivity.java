@@ -28,6 +28,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -56,16 +57,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static String PlaceCat;
     public static String placelat;
     public static String placelong;
+    public static String origin;
+    public static String destination;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
 
         Firebase.setAndroidContext(this);
 
@@ -78,68 +78,88 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        System.out.println(MainActivity.latitude);
         System.out.println(Menu.selectedCategory);
         System.out.println(Menu.selectedItem);
+        System.out.println("BEFORE DB FETCH: " + placelat);
+        System.out.println("BEFORE DB FETCH: " + placelong);
 
         DatabaseFetch();
 
 
-            final Firebase ref = new Firebase("https://danieljfears.firebaseio.com/City/Bath/" + Menu.selectedCategory + "/" + PlaceCat);
-            Query queryRef = ref.orderByKey();
+        final Firebase ref = new Firebase("https://danieljfears.firebaseio.com/City/Bath/" + Menu.selectedCategory + "/" + PlaceCat);
+        Query queryRef = ref.orderByKey();
 
-            queryRef.addChildEventListener(new ChildEventListener() {
+        queryRef.addChildEventListener(new ChildEventListener() {
 
-                @Override
-                public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
 
-                    if(snapshot.getKey().toString() == "Lat"){
-                        placelat = snapshot.getValue().toString();
-                        System.out.println("LAT: " + placelat);
+                if(snapshot.getKey().toString() == "Lat"){
+                    placelat = snapshot.getValue().toString();
+                    System.out.println("LAT: " + placelat);
+                }
+
+                if(snapshot.getKey().toString() == "Long"){
+                    placelong = snapshot.getValue().toString();
+                    System.out.println("LONG: " + placelong);
+                }
+
+                if(snapshot.getKey().toString() == "Name"){
+
+                    if(placelat != null && !placelat.isEmpty()){
+                        if(placelong != null && !placelong.isEmpty()){
+                            MapFrag();
+                        }
                     }
 
-                    if(snapshot.getKey().toString() == "Long"){
-                        placelong = snapshot.getValue().toString();
-                        System.out.println("LAT: " + placelong);
-                    }
-
                 }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                }
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
-                }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
-                }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
+            }
 
-                }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-            });
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
 
         System.out.println("THIS IS REF: " + ref);
 
+    }
 
+    private void MapFrag() {
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         sendRequest();
-    }
+    } */
 
-    private void sendRequest() {
+    /*private void sendRequest() {
 
         String origin = MainActivity.latitude + "," + MainActivity.longitude;
         String destination = placelong + "," + placelat;
@@ -157,15 +177,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        System.out.println("TOP OF MAP READY LAT: " + placelat);
+        System.out.println("TOP OF MAP READY LONG: " + placelong);
+
+        // Live user location
+        //origin = MainActivity.latitude + "," + MainActivity.longitude;
+        
+        // Fake user location: Center of Bath
+        origin = "51.380132" + "," + "-2.359838";
+
+        destination = placelat + "," + placelong;
+
+        try {
+            new DirectionFinder(this, origin, destination).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         mMap = googleMap;
-        //LatLng hcmus = new LatLng(10.762963, 106.682394);
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 18));
-        //originMarkers.add(mMap.addMarker(new MarkerOptions()
-              //  .position(hcmus)));
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -239,242 +274,276 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void DatabaseFetch() {
 
-        // ATMS
-        if(Menu.selectedItem.equals("Halifax")) {
+        if(Menu.selectedCategory.equals("ATMs")) {
 
-            PlaceCat = "/ATM1";
+            // ATMS
+            if(Menu.selectedItem.equals("Halifax")) {
 
-        }
-        if(Menu.selectedItem.equals("Sainsbury's")) {
+                PlaceCat = "/ATM1";
 
-            PlaceCat = "/ATM2";
+            }
+            if(Menu.selectedItem.equals("Sainsbury's")) {
 
-        }
-        if(Menu.selectedItem.equals("HSBC")) {
+                PlaceCat = "/ATM2";
 
-            PlaceCat = "/ATM3";
+            }
+            if(Menu.selectedItem.equals("HSBC")) {
 
-        }
-        if(Menu.selectedItem.equals("Barclays")) {
+                PlaceCat = "/ATM3";
 
-            PlaceCat = "/ATM4";
+            }
+            if(Menu.selectedItem.equals("Barclays")) {
 
-        }
-        if(Menu.selectedItem.equals("Natwest")) {
+                PlaceCat = "/ATM4";
 
-            PlaceCat = "/ATM5";
+            }
+            if(Menu.selectedItem.equals("Natwest")) {
 
-        }
+                PlaceCat = "/ATM5";
 
-
-        // Attractions
-        if(Menu.selectedItem.equals("Bath Abbey")) {
-
-            PlaceCat = "/Attraction1";
-
-        }
-        if(Menu.selectedItem.equals("Roman Baths")) {
-
-            PlaceCat = "/Attraction2";
-
-        }
-        if(Menu.selectedItem.equals("Holburne Museum")) {
-
-            PlaceCat = "/Attraction3";
-
-        }
-        if(Menu.selectedItem.equals("Victoria")) {
-
-            PlaceCat = "/Attraction4";
-
-        }
-        if(Menu.selectedItem.equals("Alexandra Park")) {
-
-            PlaceCat = "/Attraction5";
-
-        }
-        if(Menu.selectedItem.equals("Prior Park")) {
-
-            PlaceCat = "/Attraction6";
+            }
 
         }
 
+        if(Menu.selectedCategory.equals("Attraction")) {
 
+            // Attractions
+            if(Menu.selectedItem.equals("Bath Abbey")) {
 
+                PlaceCat = "/Attraction1";
 
-        // Busses
-        if(Menu.selectedItem.equals("Bus Station")) {
+            }
+            if(Menu.selectedItem.equals("Roman Baths")) {
 
-            PlaceCat = "/Stop1";
+                PlaceCat = "/Attraction2";
 
-        }
-        if(Menu.selectedItem.equals("James Str. W.")) {
+            }
+            if(Menu.selectedItem.equals("Holburne Museum")) {
 
-            PlaceCat = "/Stop2";
+                PlaceCat = "/Attraction3";
 
-        }
-        if(Menu.selectedItem.equals("Victoria Park")) {
+            }
+            if(Menu.selectedItem.equals("Victoria Park")) {
 
-            PlaceCat = "/Stop3";
+                PlaceCat = "/Attraction4";
 
-        }
-        if(Menu.selectedItem.equals("St. James Parade")) {
+            }
+            if(Menu.selectedItem.equals("Alexandra Park")) {
 
-            PlaceCat = "/Stop4";
+                PlaceCat = "/Attraction5";
+
+            }
+            if(Menu.selectedItem.equals("Prior Park")) {
+
+                PlaceCat = "/Attraction6";
+
+            }
 
         }
 
 
-        // Groceries
-        if(Menu.selectedItem.equals("Tesco Express")) {
 
-            PlaceCat = "/Groceries1";
+        if(Menu.selectedCategory.equals("Bus")) {
 
-        }
-        if(Menu.selectedItem.equals("Sainsbury's Center")) {
+            // Busses
+            if(Menu.selectedItem.equals("Bus Station")) {
 
-            PlaceCat = "/Groceries2";
+                PlaceCat = "/Stop1";
 
-        }
-        if(Menu.selectedItem.equals("Sainsbury's Bus Station")) {
+            }
+            if(Menu.selectedItem.equals("James Str. W.")) {
 
-            PlaceCat = "/Groceries3";
+                PlaceCat = "/Stop2";
 
-        }
-        if(Menu.selectedItem.equals("Sainsbury's")) {
+            }
+            if(Menu.selectedItem.equals("Victoria Park")) {
 
-            PlaceCat = "/Groceries4";
+                PlaceCat = "/Stop3";
 
-        }
-        if(Menu.selectedItem.equals("Waitrose")) {
+            }
+            if(Menu.selectedItem.equals("St. James Parade")) {
 
-            PlaceCat = "/Groceries5";
+                PlaceCat = "/Stop4";
 
-        }
-
-
-        // Restaurants
-        if(Menu.selectedItem.equals("Las Iguanas")) {
-
-            PlaceCat = "/Restaurant1";
-
-        }
-        if(Menu.selectedItem.equals("Wetherspoon")) {
-
-            PlaceCat = "/Restaurant2";
-
-        }
-        if(Menu.selectedItem.equals("Cosy Club")) {
-
-            PlaceCat = "/Restaurant3";
-
-        }
-        if(Menu.selectedItem.equals("Nandos")) {
-
-            PlaceCat = "/Restaurant4";
-
-        }
-        if(Menu.selectedItem.equals("Jamie's Italian")) {
-
-            PlaceCat = "/Restaurant5";
-
-        }
-        if(Menu.selectedItem.equals("La Croissanterie")) {
-
-            PlaceCat = "/Restaurant6";
-
-        }
-        if(Menu.selectedItem.equals("Frankie & Benny's")) {
-
-            PlaceCat = "/Restaurant7";
-
-        }
-        if(Menu.selectedItem.equals("Mission Buritto")) {
-
-            PlaceCat = "/Restaurant8";
+            }
 
         }
 
-        // Shops
-        if(Menu.selectedItem.equals("Apple Store")) {
 
-            PlaceCat = "/Shop1";
 
-        }
-        if(Menu.selectedItem.equals("Marks & Spencer")) {
+        if(Menu.selectedCategory.equals("Groceries")) {
 
-            PlaceCat = "/Shop2";
+            // Groceries
+            if(Menu.selectedItem.equals("Tesco Express")) {
 
-        }
-        if(Menu.selectedItem.equals("Debenhams")) {
+                PlaceCat = "/Groceries1";
 
-            PlaceCat = "/Shop3";
+            }
+            if(Menu.selectedItem.equals("Sainsbury's Center")) {
 
-        }
-        if(Menu.selectedItem.equals("Boots")) {
+                PlaceCat = "/Groceries2";
 
-            PlaceCat = "/Shop4";
+            }
+            if(Menu.selectedItem.equals("Sainsbury's Bus Station")) {
 
-        }
-        if(Menu.selectedItem.equals("Currys PC World")) {
+                PlaceCat = "/Groceries3";
 
-            PlaceCat = "/Shop5";
+            }
+            if(Menu.selectedItem.equals("Sainsbury's")) {
 
-        }
-        if(Menu.selectedItem.equals("Superdry")) {
+                PlaceCat = "/Groceries4";
 
-            PlaceCat = "/Shop6";
+            }
+            if(Menu.selectedItem.equals("Waitrose")) {
 
-        }
-        if(Menu.selectedItem.equals("Post Office")) {
+                PlaceCat = "/Groceries5";
 
-            PlaceCat = "/Shop7";
-
-        }
-        if(Menu.selectedItem.equals("Halfords")) {
-
-            PlaceCat = "/Shop8";
+            }
 
         }
 
-        // Toilets
-        if(Menu.selectedItem.equals("M&S Top Floor")) {
 
-            PlaceCat = "/Toilet1";
+        if(Menu.selectedCategory.equals("Restaurant")) {
+
+
+            // Restaurants
+            if(Menu.selectedItem.equals("Las Iguanas")) {
+
+                PlaceCat = "/Restaurant1";
+
+            }
+            if(Menu.selectedItem.equals("Wetherspoon")) {
+
+                PlaceCat = "/Restaurant2";
+
+            }
+            if(Menu.selectedItem.equals("Cosy Club")) {
+
+                PlaceCat = "/Restaurant3";
+
+            }
+            if(Menu.selectedItem.equals("Nandos")) {
+
+                PlaceCat = "/Restaurant4";
+
+            }
+            if(Menu.selectedItem.equals("Jamie's Italian")) {
+
+                PlaceCat = "/Restaurant5";
+
+            }
+            if(Menu.selectedItem.equals("La Croissanterie")) {
+
+                PlaceCat = "/Restaurant6";
+
+            }
+            if(Menu.selectedItem.equals("Frankie & Benny's")) {
+
+                PlaceCat = "/Restaurant7";
+
+            }
+            if(Menu.selectedItem.equals("Mission Buritto")) {
+
+                PlaceCat = "/Restaurant8";
+
+            }
 
         }
-        if(Menu.selectedItem.equals("Waitrose")) {
 
-            PlaceCat = "/Toilet2";
+        if(Menu.selectedCategory.equals("Shops")) {
+
+            // Shops
+            if(Menu.selectedItem.equals("Apple Store")) {
+
+                PlaceCat = "/Shop1";
+
+            }
+            if(Menu.selectedItem.equals("Marks & Spencer")) {
+
+                PlaceCat = "/Shop2";
+
+            }
+            if(Menu.selectedItem.equals("Debenhams")) {
+
+                PlaceCat = "/Shop3";
+
+            }
+            if(Menu.selectedItem.equals("Boots")) {
+
+                PlaceCat = "/Shop4";
+
+            }
+            if(Menu.selectedItem.equals("Currys PC World")) {
+
+                PlaceCat = "/Shop5";
+
+            }
+            if(Menu.selectedItem.equals("Superdry")) {
+
+                PlaceCat = "/Shop6";
+
+            }
+            if(Menu.selectedItem.equals("Post Office")) {
+
+                PlaceCat = "/Shop7";
+
+            }
+            if(Menu.selectedItem.equals("Halfords")) {
+
+                PlaceCat = "/Shop8";
+
+            }
 
         }
-        if(Menu.selectedItem.equals("McDonalds")) {
 
-            PlaceCat = "/Toilet3";
+        if(Menu.selectedCategory.equals("Toilets")) {
+
+            // Toilets
+            if(Menu.selectedItem.equals("M&S Top Floor")) {
+
+                PlaceCat = "/Toilet1";
+
+            }
+            if(Menu.selectedItem.equals("Waitrose")) {
+
+                PlaceCat = "/Toilet2";
+
+            }
+            if(Menu.selectedItem.equals("McDonalds")) {
+
+                PlaceCat = "/Toilet3";
+
+            }
+            if(Menu.selectedItem.equals("Bus Station")) {
+
+                PlaceCat = "/Toilet4";
+
+            }
+            if(Menu.selectedItem.equals("Wetherspoon")) {
+
+                PlaceCat = "/Toilet5";
+
+            }
 
         }
-        if(Menu.selectedItem.equals("Bus Station")) {
 
-            PlaceCat = "/Toilet4";
+        if(Menu.selectedCategory.equals("Toilets")) {
 
-        }
-        if(Menu.selectedItem.equals("Wetherspoon")) {
+            // Trains
+            if(Menu.selectedItem.equals("Bath Spa Station")) {
 
-            PlaceCat = "/Toilet5";
+                PlaceCat = "/Station1";
 
-        }
+            }
+            if(Menu.selectedItem.equals("Oldfield Park Station")) {
 
-        // Trains
-        if(Menu.selectedItem.equals("Bath Spa Station")) {
+                PlaceCat = "/Station2";
 
-            PlaceCat = "/Station1";
-
-        }
-        if(Menu.selectedItem.equals("Oldfield Park Station")) {
-
-            PlaceCat = "/Station2";
+            }
 
         }
+
+
 
 
     }

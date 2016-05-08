@@ -184,8 +184,8 @@ public class ATMs extends AppCompatActivity {
 
         Location loc2 = new Location("");
 
-        loc2.setLatitude(londouble);
-        loc2.setLongitude(latdouble);
+        loc2.setLatitude(latdouble);
+        loc2.setLongitude(londouble);
 
         float distanceInMeters = loc1.distanceTo(loc2);
 

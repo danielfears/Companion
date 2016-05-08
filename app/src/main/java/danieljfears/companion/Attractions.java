@@ -34,8 +34,6 @@ public class Attractions extends AppCompatActivity {
     public static Integer dist = 0;
     public static String lon;
     public static String lat;
-    public static String selectedItem;
-
 
     //UI
     ListView mListView;
@@ -101,6 +99,9 @@ public class Attractions extends AppCompatActivity {
 
                 FindDistance();
 
+                System.out.println("LON ON ATT :" + lon);
+                System.out.println("LAT ON ATT :" + lat);
+
                 //Log.v("E_VALUE", message);
                 mMessages.add(name);
                 //adapter.notifyDataSetChanged();
@@ -135,6 +136,9 @@ public class Attractions extends AppCompatActivity {
 
             }
         });
+
+        System.out.println("USER LOC ON ATT :" + MainActivity.latitude);
+        System.out.println("USER LOC ON ATT :" + MainActivity.longitude);
 
     }
 
@@ -186,8 +190,9 @@ public class Attractions extends AppCompatActivity {
 
         Location loc2 = new Location("");
 
-        loc2.setLatitude(londouble);
-        loc2.setLongitude(latdouble);
+        loc2.setLongitude(londouble);
+        loc2.setLatitude(latdouble);
+
 
         float distanceInMeters = loc1.distanceTo(loc2);
 
