@@ -182,6 +182,7 @@ public class ATMs extends AppCompatActivity {
         double latdouble = Double.parseDouble(lat);
 
         Location loc1 = new Location("");
+
         loc1.setLatitude(MainActivity.latitude);
         loc1.setLongitude(MainActivity.longitude);
 

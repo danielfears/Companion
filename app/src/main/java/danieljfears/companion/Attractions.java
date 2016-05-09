@@ -188,8 +188,14 @@ public class Attractions extends AppCompatActivity {
         double latdouble = Double.parseDouble(lat);
 
         Location loc1 = new Location("");
+
+        // Live user location
         loc1.setLatitude(MainActivity.latitude);
         loc1.setLongitude(MainActivity.longitude);
+
+        // Fake user location: Center of Bath
+        //loc1.setLatitude(51.380132);
+        //loc1.setLongitude(-2.359838);
 
         Location loc2 = new Location("");
 
