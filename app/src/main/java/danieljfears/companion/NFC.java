@@ -37,6 +37,9 @@ public class NFC extends AppCompatActivity {
         TextView back = (TextView) findViewById(R.id.back);
         back.setTypeface(typeface);
 
+        TextView wirelessicon = (TextView) findViewById(R.id.wirelessicon);
+        wirelessicon.setTypeface(typeface);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,7 +11,7 @@
         android:layout_height="120dp"
         android:id="@+id/topsection"
         android:background="#00b9e6"
-        android:elevation="5dp">
+        android:elevation="8dp">
 
         <TextView
             android:layout_width="60dp"
@@ -22,7 +22,7 @@
             android:clickable="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:textColor="@drawable/faback" />
+            android:textColor="@drawable/faback"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,9 +48,22 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/middlesection"
+        android:layout_below="@+id/topsection">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/bath2"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/topsection">
+        android:layout_below="@+id/middlesection">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -63,91 +76,107 @@
 
         <Button
             android:layout_width="90dp"
-            android:layout_height="230dp"
-            android:text="Tourist&#10;Attractions"
+            android:layout_height="180dp"
+            android:text="&#xf18c;&#10;&#10;Attractions"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/attractions"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
 
             />
 
         <Button
-            android:layout_height="230dp"
+            android:layout_height="180dp"
             android:layout_width="100dp"
-            android:text="Restaurants"
+            android:text="&#xf0f5;&#10;&#10;Restaurants"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/restaurants"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
             />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:text="Shopping"
+            android:layout_height="180dp"
+            android:text="&#xf290;&#10;&#10;Shopping"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/shopping"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
             />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:text="Bus Stops"
+            android:layout_height="180dp"
+            android:text="&#xf207;&#10;&#10;Bus Stops"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/busses"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
             />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:text="Train&#10;Stations"
+            android:layout_height="180dp"
+            android:text="&#xf238;&#10;&#10;Trains"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/trains"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
             />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:text="Toilets"
+            android:layout_height="180dp"
+            android:text="&#xf183; / &#xf182;&#10;&#10;Toilets"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/toilets"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
             />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:text="Groceries"
+            android:layout_height="180dp"
+            android:text="&#xf07a;&#10;&#10;Groceries"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/groceries"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
             />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="230dp"
-            android:text="ATMs"
+            android:layout_height="180dp"
+            android:text="&#xf0d6;&#10;&#10;ATMs"
             android:layout_gravity="fill"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif"
             android:textSize="30dp"
             android:id="@+id/atms"
+            android:textColor="#fff"
+            android:theme="@style/BlueButton"
             />
 
     </GridLayout>

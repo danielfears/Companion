@@ -190,14 +190,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        System.out.println("TOP OF MAP READY LAT: " + placelat);
-        System.out.println("TOP OF MAP READY LONG: " + placelong);
-
         // Live user location
-        //origin = MainActivity.latitude + "," + MainActivity.longitude;
+        origin = MainActivity.latitude + "," + MainActivity.longitude;
 
         // Fake user location: Center of Bath
-        origin = "51.380132" + "," + "-2.359838";
+        //origin = "51.380132" + "," + "-2.359838";
+
+        System.out.println("Users lat: " + MainActivity.latitude);
+        System.out.println("Users long: " + MainActivity.longitude);
 
         destination = placelat + "," + placelong;
 
@@ -544,7 +544,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-        if(Menu.selectedCategory.equals("Toilets")) {
+        if(Menu.selectedCategory.equals("Train")) {
 
             // Trains
             if(Menu.selectedItem.equals("Bath Spa Station")) {

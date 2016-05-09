@@ -9,7 +9,7 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="HomeButton" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BlueButton" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorControlHighlight">@color/material_light_blue_A400</item>
         <item name="colorButtonNormal">@color/material_light_blue_A200</item>
     </style>

@@ -9,7 +9,7 @@
         android:layout_height="120dp"
         android:id="@+id/topsection"
         android:background="#00b9e6"
-        android:elevation="5dp">
+        android:elevation="8dp">
 
         <TextView
             android:layout_width="60dp"

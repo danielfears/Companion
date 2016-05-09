@@ -49,6 +49,15 @@ public class Menu extends AppCompatActivity {
         Button groceries = (Button) findViewById(R.id.groceries);
         Button atms = (Button) findViewById(R.id.atms);
 
+        attractions.setTypeface(typeface);
+        restaurants.setTypeface(typeface);
+        shopping.setTypeface(typeface);
+        busses.setTypeface(typeface);
+        trains.setTypeface(typeface);
+        toilets.setTypeface(typeface);
+        groceries.setTypeface(typeface);
+        atms.setTypeface(typeface);
+
         attractions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

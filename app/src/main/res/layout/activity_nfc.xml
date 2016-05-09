@@ -10,7 +10,7 @@
         android:layout_height="120dp"
         android:id="@+id/topsection"
         android:background="#00b9e6"
-        android:elevation="5dp">
+        android:elevation="8dp">
 
         <TextView
             android:layout_width="60dp"
@@ -44,6 +44,32 @@
             android:layout_centerHorizontal="true"
             android:textColor="#fff"
             android:text="Scan NFC Tag to Check-In"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topsection">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text"
+            android:text="Tap your device against the NFC tag to check-in on Facebook"
+            android:textSize="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="100dp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#xf1eb;"
+            android:layout_centerInParent="true"
+            android:textSize="200dp"
+            android:id="@+id/wirelessicon"
+            android:layout_below="@+id/text"/>
 
     </RelativeLayout>
 
