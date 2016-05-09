@@ -4,19 +4,19 @@
 
     <ImageView
         android:id="@+id/imgCity"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginLeft="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="30dp"
         android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/lblCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/imgCity"
+        android:layout_marginTop="30dp"
         />
 
     <TextView
@@ -28,6 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/lblCity"
         android:layout_toRightOf="@+id/imgCity"
+        android:textStyle="italic"
         />
 
 </RelativeLayout>

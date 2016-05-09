@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="danieljfears.companion.NFC">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +23,6 @@
             android:layout_marginLeft="20dp"
             android:textColor="@drawable/faback" />
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,26 +39,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/menuTitle"
             android:textSize="30dp"
-            android:text="Bus Stops Near You"
             android:textStyle="bold"
             android:layout_below="@+id/name"
             android:layout_centerHorizontal="true"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:text="Scan NFC Tag to Check-In"/>
 
     </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/topsection">
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listView">
-        </ListView>
-
-    </RelativeLayout>
-
 
 </RelativeLayout>

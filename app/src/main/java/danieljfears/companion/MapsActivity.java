@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -60,18 +62,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static String origin;
     public static String destination;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        TextView destinationLbl = (TextView)findViewById(R.id.directionsLbl);
+
+        destinationLbl.setText("Directions to: " + Menu.selectedItem);
+
+        //UiSettings.setMapToolbarEnabled(true);
 
         Firebase.setAndroidContext(this);
 
-        ImageButton backbtn = (ImageButton) findViewById(R.id.backbtn);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        TextView back = (TextView) findViewById(R.id.back);
+        back.setTypeface(typeface);
 
-        backbtn.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -187,7 +195,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Live user location
         //origin = MainActivity.latitude + "," + MainActivity.longitude;
-        
+
         // Fake user location: Center of Bath
         origin = "51.380132" + "," + "-2.359838";
 
@@ -201,6 +209,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap = googleMap;
 
+
+
+        LatLng UserLocation = new LatLng(MainActivity.latitude, MainActivity.longitude);
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(21));
+        originMarkers.add(mMap.addMarker(new MarkerOptions()
+                .position(UserLocation)));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -246,7 +260,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         originMarkers = new ArrayList<>();
         destinationMarkers = new ArrayList<>();
 
+
+
         for (Route route : routes) {
+
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
             ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
             ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);
@@ -379,12 +396,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 PlaceCat = "/Groceries1";
 
             }
-            if(Menu.selectedItem.equals("Sainsbury's Center")) {
+            if(Menu.selectedItem.equals("Sainsbury's Local 1")) {
 
                 PlaceCat = "/Groceries2";
 
             }
-            if(Menu.selectedItem.equals("Sainsbury's Bus Station")) {
+            if(Menu.selectedItem.equals("Sainsbury's Local 2")) {
 
                 PlaceCat = "/Groceries3";
 

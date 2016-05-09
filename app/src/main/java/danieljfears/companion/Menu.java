@@ -1,6 +1,7 @@
 package danieljfears.companion;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,16 +27,18 @@ public class Menu extends AppCompatActivity {
 
         TextView menuTitle = (TextView)findViewById(R.id.menuTitle);
 
-        ImageButton backbtn = (ImageButton) findViewById(R.id.backbtn);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        TextView back = (TextView) findViewById(R.id.back);
+        back.setTypeface(typeface);
 
-        backbtn.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
-        menuTitle.setText("Find places around " + Cities.CityName + "..");
+        menuTitle.setText("Find places around " + Cities.CityName);
 
         Button attractions = (Button) findViewById(R.id.attractions);
         Button restaurants = (Button) findViewById(R.id.restaurants);
@@ -69,7 +72,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(Menu.this, Shopping.class);
                 startActivity(i);
-                selectedCategory = "Shopping";
+                selectedCategory = "Shops";
             }
         });
 

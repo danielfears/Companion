@@ -9,80 +9,101 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:id="@+id/topsection"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp">
+        android:background="#199B60"
+        android:elevation="5dp"
+        >
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/backbtn"
-            android:src="@drawable/backbtn"
-            android:scaleType="fitXY"
-            android:scaleX="1"
-            android:scaleY="1"
-            android:background="#80000000"
-            android:layout_marginLeft="10dp"
-            />
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/back"
+            android:text="&#xf060;"
+            android:textSize="60dp"
+            android:clickable="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:textColor="@drawable/faback" />
 
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"
-            android:layout_centerInParent="true"/>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Companion"
+            android:fontFamily="sans-serif"
+            android:textSize="30dp"
+            android:textColor="#fff"
+            android:id="@+id/name"/>
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:id="@+id/helpbtn"
-            android:src="@drawable/helpbtn"
-            android:scaleType="fitXY"
-            android:scaleX="1"
-            android:scaleY="1"
-            android:background="#80000000"
-            android:layout_marginRight="10dp"
-            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/directionsLbl"
+            android:textSize="30dp"
+            android:text="Directions to: X"
+            android:textStyle="bold"
+            android:layout_below="@+id/name"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fff"
+            android:layout_marginTop="15dp"/>
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:orientation="horizontal"
+        android:background="#199B60"
+        android:elevation="5dp"
         >
 
         <ImageView
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="150dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_distance"/>
+            android:src="@drawable/ic_distance"
+            android:id="@+id/ivdistance"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"/>
+
         <TextView
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 km"
-            android:id="@+id/tvDistance" />
+            android:id="@+id/tvDistance"
+            android:textSize="18dp"
+            android:layout_toRightOf="@+id/ivdistance"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:textColor="#fff"/>
 
         <ImageView
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="5dp"
-            android:src="@drawable/ic_clock"/>
+            android:src="@drawable/ic_clock"
+            android:id="@+id/ivduration"
+            android:layout_toLeftOf="@+id/tvDuration"
+            android:layout_centerVertical="true"/>
+
         <TextView
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 min"
-            android:id="@+id/tvDuration" />
-    </LinearLayout>
-
+            android:id="@+id/tvDuration"
+            android:textSize="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="150dp"
+            android:textStyle="bold"
+            android:textColor="#fff"/>
+    </RelativeLayout>
 
     <fragment
         android:id="@+id/map"

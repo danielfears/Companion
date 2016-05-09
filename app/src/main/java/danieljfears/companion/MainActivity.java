@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button button = (Button) findViewById(R.id.button);
-        Button buttongps = (Button) findViewById(R.id.buttongps);
+        Button buttonnfc = (Button) findViewById(R.id.buttonnfc);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttongps.setOnClickListener(new View.OnClickListener() {
+        buttonnfc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //FindDistance();
+                Intent i= new Intent(MainActivity.this,NFC.class);
+                startActivity(i);
 
             }
         });

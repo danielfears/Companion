@@ -1,6 +1,7 @@
 package danieljfears.companion;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,15 +45,17 @@ public class Shopping extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping);
 
-        ImageButton backbtn = (ImageButton) findViewById(R.id.backbtn);
-
         Firebase.setAndroidContext(this);
 
         mRootRef = new Firebase("https://danieljfears.firebaseio.com/City/" + Cities.CityName);
 
         mListView = (ListView)findViewById(R.id.listView);
 
-        backbtn.setOnClickListener(new View.OnClickListener() {
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
+        TextView back = (TextView) findViewById(R.id.back);
+        back.setTypeface(typeface);
+
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
