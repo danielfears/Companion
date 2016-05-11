@@ -74,5 +74,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        gps = new GPSTracker(MainActivity.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
 
     }
+}

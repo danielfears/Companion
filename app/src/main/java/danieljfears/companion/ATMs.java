@@ -90,6 +90,16 @@ public class ATMs extends AppCompatActivity {
             }
         });
 
+        MainActivity.gps = new GPSTracker(ATMs.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
         Firebase messagesRef = mRootRef.child("/ATMs");
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -173,6 +183,16 @@ public class ATMs extends AppCompatActivity {
 
         mMessages.clear();
         restaurants.clear();
+
+        MainActivity.gps = new GPSTracker(ATMs.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
 
     }
 

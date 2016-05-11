@@ -62,6 +62,16 @@ public class Restaurants extends AppCompatActivity {
             }
         });
 
+        MainActivity.gps = new GPSTracker(Restaurants.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
     }
 
     @Override
@@ -176,6 +186,16 @@ public class Restaurants extends AppCompatActivity {
 
         mMessages.clear();
         restaurants.clear();
+
+        MainActivity.gps = new GPSTracker(Restaurants.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
 
     }
 

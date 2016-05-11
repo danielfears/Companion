@@ -98,6 +98,16 @@ public class Cities extends AppCompatActivity {
             }
         });
 
+        MainActivity.gps = new GPSTracker(Cities.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
         Firebase messagesRef = mRootRef.child("City");
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -186,5 +196,19 @@ public class Cities extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        MainActivity.gps = new GPSTracker(Cities.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
+    }
 }

@@ -33,6 +33,16 @@ public class NFC extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
 
+        MainActivity.gps = new GPSTracker(NFC.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/fa.ttf");
         TextView back = (TextView) findViewById(R.id.back);
         back.setTypeface(typeface);
@@ -140,6 +150,17 @@ public class NFC extends AppCompatActivity {
 
         if (mNfcAdapter != null)
             mNfcAdapter.enableForegroundDispatch(this, mPendingIntent, mIntentFilters, mNFCTechLists);
+
+        MainActivity.gps = new GPSTracker(NFC.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
     }
 
     @Override

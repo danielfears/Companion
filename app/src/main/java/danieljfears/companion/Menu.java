@@ -38,6 +38,16 @@ public class Menu extends AppCompatActivity {
             }
         });
 
+        MainActivity.gps = new GPSTracker(Menu.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
         menuTitle.setText("Find places around " + Cities.CityName);
 
         Button attractions = (Button) findViewById(R.id.attractions);
@@ -131,6 +141,22 @@ public class Menu extends AppCompatActivity {
         });
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        MainActivity.gps = new GPSTracker(Menu.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
 
     }
 }

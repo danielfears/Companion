@@ -90,6 +90,16 @@ public class Attractions extends AppCompatActivity {
             }
         });
 
+        MainActivity.gps = new GPSTracker(Attractions.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
         Firebase messagesRef = mRootRef.child("/Attraction");
         messagesRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -179,6 +189,16 @@ public class Attractions extends AppCompatActivity {
 
         mMessages.clear();
         restaurants.clear();
+
+        MainActivity.gps = new GPSTracker(Attractions.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
 
     }
 

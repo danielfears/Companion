@@ -67,6 +67,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        MainActivity.gps = new GPSTracker(MapsActivity.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
         TextView destinationLbl = (TextView)findViewById(R.id.directionsLbl);
 
         destinationLbl.setText("Directions to: " + Menu.selectedItem);
@@ -186,6 +196,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
     }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        MainActivity.gps = new GPSTracker(MapsActivity.this);
+
+        if(MainActivity.gps.canGetLocation()) {
+            MainActivity.latitude = MainActivity.gps.getLatitude();
+            MainActivity.longitude = MainActivity.gps.getLongitude();
+
+        } else {
+            MainActivity.gps.showSettingsAlert();
+        }
+
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
