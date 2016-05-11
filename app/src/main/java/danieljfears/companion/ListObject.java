@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 public class ListObject implements Serializable{
 
+    public ListObject() {
+    }
+
     private String cityName;
     private Integer cityPicture;
     private String cityDesc;
